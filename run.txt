@@ -1,0 +1,7 @@
+# Create a new agent
+agent_id = create_agent("https://github.com/user/repo", "Fix the bug in login.py")
+
+# Delete an agent
+delete_agent(agent_id)
+
+# The main loop will automatically track all agents' output

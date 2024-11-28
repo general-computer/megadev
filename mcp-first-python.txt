@@ -1,0 +1,92 @@
+Python
+Create a simple MCP server in Python in 15 minutes
+
+Let’s build your first MCP server in Python! We’ll create a weather server that provides current weather data as a resource and lets Claude fetch forecasts using tools.
+
+This guide uses the OpenWeatherMap API. You’ll need a free API key from OpenWeatherMap to follow along.
+
+Prerequisites
+
+The following steps are for macOS. Guides for other platforms are coming soon.
+
+Install Python
+
+You’ll need Python 3.10 or higher:
+
+Create a new project using the MCP project creator
+
+Install additional dependencies
+
+Create your server
+
+Add the base imports and setup
+
+In weather_service/src/weather_service/server.py
+
+Add weather fetching functionality
+
+Implement resource handlers
+
+Add these resource-related handlers to our main function:
+
+Implement tool handlers
+
+Add these tool-related handlers:
+
+Add the main function
+
+Add this to the end of weather_service/src/weather_service/server.py:
+
+Check your entry point in __init__.py
+
+Add this to the end of weather_service/src/weather_service/__init__.py:
+
+Connect to Claude Desktop
+
+Update Claude config
+
+Add to claude_desktop_config.json:
+
+Restart Claude
+
+Quit Claude completely
+
+Start Claude again
+
+Look for your weather server in the 🔌 menu
+
+Try it out!
+
+Understanding the code
+
+Python type hints help catch errors early and improve code maintainability.
+
+Best practices
+
+Available transports
+
+While this guide uses stdio transport, MCP supports additonal transport options:
+
+SSE (Server-Sent Events)
+
+Advanced features
+
+Understanding Request Context
+
+The request context provides access to the current request’s metadata and the active client session. Access it through server.request_context:
+
+Add progress notifications
+
+Testing
+
+Create test file
+
+Create tests/weather_test.py:
+
+Troubleshooting
+
+Installation issues
+
+Type checking
+
+Next steps
