@@ -21,25 +21,23 @@ fn test_add_and_retrieve_events() -> Result<()> {
     let mut orchestrator = Orchestrator::new(temp.path().to_path_buf())?;
 
     // Add test events
-    let event1 = TimelineEvent {
-        timestamp: Utc::now(),
-        commit_hash: Some("abc123".to_string()),
-        decision_type: DecisionType::Accept,
-        files_modified: vec!["src/main.rs".to_string()],
-        llm_suggestion: "Add error handling".to_string(),
-        user_feedback: "Good improvement".to_string(),
-        tags: vec!["error-handling".to_string(), "safety".to_string()],
-    };
+    let event1 = TimelineEvent::new(
+        Some("abc123".to_string()),
+        DecisionType::Accept,
+        vec!["src/main.rs".to_string()],
+        "Add error handling".to_string(),
+        "Good improvement".to_string(),
+        vec!["error-handling".to_string(), "safety".to_string()],
+    );
 
-    let event2 = TimelineEvent {
-        timestamp: Utc::now(),
-        commit_hash: Some("def456".to_string()),
-        decision_type: DecisionType::Reject,
-        files_modified: vec!["src/lib.rs".to_string()],
-        llm_suggestion: "Remove error checking".to_string(),
-        user_feedback: "Would reduce safety".to_string(),
-        tags: vec!["safety".to_string()],
-    };
+    let event2 = TimelineEvent::new(
+        Some("def456".to_string()),
+        DecisionType::Reject,
+        vec!["src/lib.rs".to_string()],
+        "Remove error checking".to_string(),
+        "Would reduce safety".to_string(),
+        vec!["safety".to_string()],
+    );
 
     orchestrator.add_event(event1)?;
     orchestrator.add_event(event2)?;
@@ -67,15 +65,14 @@ fn test_pattern_analysis() -> Result<()> {
 
     // Add events with different success rates for different tags
     for i in 0..10 {
-        let event = TimelineEvent {
-            timestamp: Utc::now(),
-            commit_hash: Some(format!("commit{}", i)),
-            decision_type: if i % 2 == 0 { DecisionType::Accept } else { DecisionType::Reject },
-            files_modified: vec!["test.rs".to_string()],
-            llm_suggestion: "Test change".to_string(),
-            user_feedback: "Test feedback".to_string(),
-            tags: vec!["tag1".to_string(), if i < 8 { "tag2".to_string() } else { "tag3".to_string() }],
-        };
+        let event = TimelineEvent::new(
+            Some(format!("commit{}", i)),
+            if i % 2 == 0 { DecisionType::Accept } else { DecisionType::Reject },
+            vec!["test.rs".to_string()],
+            "Test change".to_string(),
+            "Test feedback".to_string(),
+            vec!["tag1".to_string(), if i < 8 { "tag2".to_string() } else { "tag3".to_string() }],
+        );
         orchestrator.add_event(event)?;
     }
 

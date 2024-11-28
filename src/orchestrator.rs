@@ -14,13 +14,34 @@ pub enum DecisionType {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TimelineEvent {
-    timestamp: DateTime<Utc>,
-    commit_hash: Option<String>,
-    decision_type: DecisionType,
-    files_modified: Vec<String>,
-    llm_suggestion: String,
-    user_feedback: String,
-    tags: Vec<String>,
+    pub timestamp: DateTime<Utc>,
+    pub commit_hash: Option<String>,
+    pub decision_type: DecisionType,
+    pub files_modified: Vec<String>,
+    pub llm_suggestion: String,
+    pub user_feedback: String,
+    pub tags: Vec<String>,
+}
+
+impl TimelineEvent {
+    pub fn new(
+        commit_hash: Option<String>,
+        decision_type: DecisionType,
+        files_modified: Vec<String>,
+        llm_suggestion: String,
+        user_feedback: String,
+        tags: Vec<String>,
+    ) -> Self {
+        Self {
+            timestamp: Utc::now(),
+            commit_hash,
+            decision_type,
+            files_modified,
+            llm_suggestion,
+            user_feedback,
+            tags,
+        }
+    }
 }
 
 #[derive(Debug)]
