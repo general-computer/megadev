@@ -5,7 +5,7 @@ use std::fs;
 use std::path::PathBuf;
 use anyhow::{Result, Context};
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Copy, Clone, PartialEq)]
 pub enum DecisionType {
     Accept,
     Reject,
@@ -70,7 +70,7 @@ impl Orchestrator {
 
     pub fn get_events_by_decision(&self, decision: DecisionType) -> Vec<&TimelineEvent> {
         self.events.iter()
-            .filter(|event| matches!(event.decision_type, decision))
+            .filter(|event| event.decision_type == decision)
             .collect()
     }
 
