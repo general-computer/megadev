@@ -1,7 +1,43 @@
-This is a fork of the 100x orchestrator, with a simplified structure and a slightly different approach.
+This is a fork of the 100x orchestrator, with a simplified structure and a learning-focused approach.
 
+Core Philosophy:
+- Each code review, decision, and choice made by senior/executive team members contains valuable learning data
+- These decisions should be captured and made available to all AI agents working in the codebase
+- The system should build an organizational memory of technical decisions and their rationale
 
-The philosophy here is that each code review, decision, and choice that a senior or executive person makes provides valuable information to all cognitions operating in subservience at that company. Therefore, if a decision is made to keep or discard a specific commit, that information should be stored in a timeline.log that is also provided to other agents doing work in the context.
+Implementation Requirements:
 
+1. Code Review Process
+   - After each LLM-suggested change, prompt user for code review
+   - Capture binary decision (accept/reject) and detailed justification
+   - Support partial accepts with specific feedback on what worked/didn't work
 
-Concrete spec: After each LLM request, have the user do a code review, and keep or discard the commit while the justification goes into timeline.json with the appropriate metadata. 
+2. Timeline Storage (timeline.json)
+   - Store each decision as a timestamped event
+   - Required metadata per event:
+     * Timestamp
+     * Commit hash (if accepted)
+     * Decision type (accept/reject/partial)
+     * Files modified
+     * Original LLM suggestion
+     * User justification/feedback
+     * Tags for categorization (e.g. "security", "performance", "style")
+
+3. Learning Integration
+   - Timeline.json should be provided as context for future LLM requests
+   - System should extract patterns from past decisions
+   - New suggestions should align with previously accepted patterns
+   - Rejected patterns should be avoided in future suggestions
+
+4. Technical Requirements
+   - Use git for version control of changes
+   - JSON format for timeline storage
+   - Support for rolling back partial accepts
+   - Efficient storage/retrieval of large timeline history
+   - Backup/restore capabilities for timeline.json
+
+5. User Interface
+   - Clear prompts for review decisions
+   - Easy way to provide detailed feedback
+   - Support for both quick accepts and detailed reviews
+   - View/search timeline history
