@@ -1,0 +1,7 @@
+This is a fork of the 100x orchestrator, with a simplified structure and a slightly different approach.
+
+
+The philosophy here is that each code review, decision, and choice that a senior or executive person makes provides valuable information to all cognitions operating in subservience at that company. Therefore, if a decision is made to keep or discard a specific commit, that information should be stored in a timeline.log that is also provided to other agents doing work in the context.
+
+
+Concrete spec: After each LLM request, have the user do a code review, and keep or discard the commit while the justification goes into timeline.json with the appropriate metadata. 
