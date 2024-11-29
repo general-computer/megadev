@@ -1,3 +1,10 @@
+NEWEST UPDATE:
+
+
+WE WANT TO USE MCP AND RUST TOGETHER. 
+
+Let's start with a simple Rust test suite for the orchestrator.
+
 This is a fork of the 100x orchestrator, with a simplified structure and a learning-focused approach.
 
 Core Philosophy:
