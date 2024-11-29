@@ -13,7 +13,7 @@ from megadev.models import Squad
 console = Console()
 
 class CodingTournament:
-    def __init__(self, initial_devs: int = 1_000_000):
+    def __init__(self, initial_devs: int = 100):
         self.initial_devs = initial_devs
         self.server = MegaDevServer()
         self.round = 0
