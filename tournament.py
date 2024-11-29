@@ -7,15 +7,55 @@ from rich.progress import Progress, SpinnerColumn
 from rich.table import Table
 from rich.panel import Panel
 from rich.live import Live
-from megadev.server import MegaDevServer
-from megadev.models import Squad
+from dataclasses import dataclass
+from typing import List
+import random
+import numpy as np
 
 console = Console()
+
+@dataclass
+class Agent:
+    name: str
+    learning_rate: float
+    memory_capacity: float
+    attention_span: float
+    creativity_factor: float
+    cooperation_bias: float
+    risk_tolerance: float
+    adaptation_speed: float
+    energy_efficiency: float
+
+    @classmethod
+    def create_random(cls, name: str):
+        return cls(
+            name=name,
+            learning_rate=random.random(),
+            memory_capacity=random.random(),
+            attention_span=random.random(),
+            creativity_factor=random.random(),
+            cooperation_bias=random.random(),
+            risk_tolerance=random.random(),
+            adaptation_speed=random.random(),
+            energy_efficiency=random.random()
+        )
+
+@dataclass
+class Squad:
+    name: str
+    agents: List[Agent]
+    fitness_score: float = 0.0
+
+    @classmethod
+    def create_random(cls, name: str, size: int = 5):
+        return cls(
+            name=name,
+            agents=[Agent.create_random(f"{name}-Agent{i}") for i in range(size)]
+        )
 
 class CodingTournament:
     def __init__(self, initial_devs: int = 100):
         self.initial_devs = initial_devs
-        self.server = MegaDevServer()
         self.round = 0
         self.squads: List[Squad] = []
         self.hall_of_fame: List[Dict] = []
@@ -51,11 +91,9 @@ class CodingTournament:
         num_squads = self.initial_devs // squad_size
         
         with console.status("[bold green]Gathering developers worldwide..."):
-            await self.server.initialize_population(
-                population_size=num_squads,
-                squad_size=squad_size
-            )
-            self.squads = self.server.population
+            squad_names = [f"Squad-{i}" for i in range(num_squads)]
+            self.squads = [Squad.create_random(name, squad_size) for name in squad_names]
+            await asyncio.sleep(1)  # For dramatic effect
 
     async def run_challenge_round(self) -> List[Squad]:
         """Run one round of the tournament"""
