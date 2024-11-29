@@ -67,17 +67,17 @@ class CodingTournament:
         for agent in squad.agents:
             # Different challenges favor different attributes
             if self.round % 3 == 0:  # Algorithm challenges
-                score = (agent.config.learning_rate * 0.4 +
-                        agent.config.memory_capacity * 0.4 +
-                        agent.config.attention_span * 0.2)
+                score = (agent.learning_rate * 0.4 +
+                        agent.memory_capacity * 0.4 +
+                        agent.attention_span * 0.2)
             elif self.round % 3 == 1:  # System design challenges
-                score = (agent.config.creativity_factor * 0.3 +
-                        agent.config.cooperation_bias * 0.4 +
-                        agent.config.risk_tolerance * 0.3)
+                score = (agent.creativity_factor * 0.3 +
+                        agent.cooperation_bias * 0.4 +
+                        agent.risk_tolerance * 0.3)
             else:  # Debug challenges
-                score = (agent.config.adaptation_speed * 0.5 +
-                        agent.config.energy_efficiency * 0.3 +
-                        agent.config.attention_span * 0.2)
+                score = (agent.adaptation_speed * 0.5 +
+                        agent.energy_efficiency * 0.3 +
+                        agent.attention_span * 0.2)
             
             # Add some randomness
             score *= random.uniform(0.8, 1.2)
