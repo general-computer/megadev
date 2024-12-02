@@ -41,7 +41,7 @@ class Background:
     @classmethod
     def generate_random(cls) -> 'Background':
         """Generate a random background"""
-        education_levels = ['High School', 'Bachelor's', 'Master's', 'PhD']
+        education_levels = ['High School', "Bachelor's", "Master's", 'PhD']
         skills = ['Writing', 'Analysis', 'Research', 'Communication', 'Leadership', 
                  'Problem Solving', 'Critical Thinking', 'Time Management']
         traits = ['Introvert', 'Extrovert', 'Detail-oriented', 'Creative', 
